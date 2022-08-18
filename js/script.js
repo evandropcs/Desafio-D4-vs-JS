@@ -1,6 +1,6 @@
-const palavrasValidas = ['arroz', 'amora', 'teste']
+const palavrasValidas = ['ARROZ', 'AMORA', 'TESTE']
 
-const palavraDoDia = 'arroz'
+const palavraDoDia = 'ARROZ'
 
 let linha = 1
 
@@ -20,7 +20,10 @@ const ouvinteDeTeclas = (event) => {
     }
 
     if (char == 'ENTER') {
-        validarEntrada()
+        var indicesValidos = [5, 10, 15, 20, 25, 30]
+        if (indicesValidos.includes(entrada.length) ){
+        validarEntrada()}
+        entrada = []
         linha += 1
         return;
     }
@@ -32,9 +35,11 @@ const ouvinteDeTeclas = (event) => {
         return;
     }
 
-    entrada.push(char)
+    if (entrada.length < 5){
+        entrada.push(char)  
+    }
+    
     console.log(entrada)
-
     exibeLetra(char)
 }
 
@@ -51,7 +56,27 @@ function removeLetra() {
 }
 
 function validarEntrada() {
-    console.log('validar se ' + entrada + ' é igual ' + palavraDoDia)
+    
+    for (var i = 0; i < palavraDoDia.length; i++){
+        if (palavraDoDia[i] == (entrada.join('')[i])){
+            let elId = `l${linha}c${i+1}`
+            var l = document.getElementById(elId)
+            l.classList.add('validado')
+        } 
+        
+        // else if (palavraDoDia.slice(i,(palavraDoDia.length)).includes((entrada.join('')[i]))){
+        //     let elId = `l${linha}c${i+1}`
+        //     var l = document.getElementById(elId)
+        //     l.classList.add('posicao-errada')
+        // } 
+        
+        else{
+            let elId = `l${linha}c${i+1}`
+            var l = document.getElementById(elId)
+            l.classList.add('invalido')
+            console.log('Diferente')
+        }
+    }
 }
 
 
