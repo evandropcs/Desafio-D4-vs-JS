@@ -22,9 +22,10 @@ const ouvinteDeTeclas = (event) => {
     if (char == 'ENTER') {
         var indicesValidos = [5, 10, 15, 20, 25, 30]
         if (indicesValidos.includes(entrada.length) ){
-        validarEntrada()}
+        validarEntrada()
         entrada = []
-        linha += 1
+        linha += 1}
+ 
         return;
     }
 
@@ -74,7 +75,6 @@ function validarEntrada() {
             let elId = `l${linha}c${i+1}`
             var l = document.getElementById(elId)
             l.classList.add('invalido')
-            console.log('Diferente')
         }
     }
 }
