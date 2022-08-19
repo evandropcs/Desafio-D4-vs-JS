@@ -20,12 +20,12 @@ const ouvinteDeTeclas = (event) => {
     }
 
     if (char == 'ENTER') {
-        var indicesValidos = [5, 10, 15, 20, 25, 30]
-        if (indicesValidos.includes(entrada.length) ){
+        if (entrada.length = 5){
         validarEntrada()
         entrada = []
         linha += 1}
- 
+        console.log('linha: ', linha)
+        console.log('entrada: ',entrada.length)
         return;
     }
 
@@ -42,6 +42,7 @@ const ouvinteDeTeclas = (event) => {
     
     console.log(entrada)
     exibeLetra(char)
+    
 }
 
 function exibeLetra(letra) {
@@ -57,22 +58,26 @@ function removeLetra() {
 }
 
 function validarEntrada() {
-    
+    entrada = entrada.join('')
     for (var i = 0; i < palavraDoDia.length; i++){
-        if (palavraDoDia[i] == (entrada.join('')[i])){
+        
+        // Letra correta na posição correta
+        if (palavraDoDia[i] == (entrada[i])){
             let elId = `l${linha}c${i+1}`
             var l = document.getElementById(elId)
             l.classList.add('validado')
             l.classList.add("animate__animated")
             l.classList.add("animate__flipInX")
+        }
+
+        // Letra correta na posição errada correta
+        else if (palavraDoDia.includes(entrada[i])){
+            let elId = `l${linha}c${i+1}`
+            var l = document.getElementById(elId)
+            l.classList.add('posicao-errada')
         } 
         
-        // else if (palavraDoDia.slice(i,(palavraDoDia.length)).includes((entrada.join('')[i]))){
-        //     let elId = `l${linha}c${i+1}`
-        //     var l = document.getElementById(elId)
-        //     l.classList.add('posicao-errada')
-        // } 
-        
+        // Letra não existe
         else{
             let elId = `l${linha}c${i+1}`
             var l = document.getElementById(elId)
@@ -80,7 +85,24 @@ function validarEntrada() {
             l.classList.add("animate__animated")
             l.classList.add("animate__flipInX")
         }
+
     }
+
+    if (palavraDoDia === entrada){
+        setTimeout(sucesso, 600)
+    } 
+    
+    if (linha === 6 && palavraDoDia != entrada){
+        setTimeout(fracasso, 600)
+    }
+}
+
+function sucesso (){
+    alert('Parabéns, você venceu!')
+}
+
+function fracasso (){
+    alert(`A palavra do dia era: ${palavraDoDia}`)
 }
 
 
