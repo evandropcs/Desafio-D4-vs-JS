@@ -63,6 +63,8 @@ function validarEntrada() {
             let elId = `l${linha}c${i+1}`
             var l = document.getElementById(elId)
             l.classList.add('validado')
+            l.classList.add("animate__animated")
+            l.classList.add("animate__flipInX")
         } 
         
         // else if (palavraDoDia.slice(i,(palavraDoDia.length)).includes((entrada.join('')[i]))){
@@ -75,6 +77,8 @@ function validarEntrada() {
             let elId = `l${linha}c${i+1}`
             var l = document.getElementById(elId)
             l.classList.add('invalido')
+            l.classList.add("animate__animated")
+            l.classList.add("animate__flipInX")
         }
     }
 }
