@@ -1,10 +1,12 @@
 let palavrasValidas = []
 
 palavrasValidasAcentuadas.forEach(function(element) {
-    palavrasValidas.push(element.normalize('NFD').replace(/[\u0300-\u036f]/g, ""))
+    palavrasValidas.push(element.normalize('NFD').replace(/[\u0300-\u036f]/g, "").toUpperCase())
 })
 
-let palavraDoDia = palavrasValidas[0].toUpperCase()
+let indice = Math.floor(Math.random() * palavrasValidas.length)
+
+let palavraDoDia = palavrasValidas[indice]
 
 let linha = 1
 
