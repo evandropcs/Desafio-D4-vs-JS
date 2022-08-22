@@ -57,6 +57,8 @@ body {
 .tabuleiro {
   text-align: center;
   justify-content: bottom;
+  margin: auto;
+  width: 330px;
 }
 
 .quadrado {
@@ -96,6 +98,10 @@ body {
 .normal {
   background-color: #d3d6da;
   border: 2px solid #d3d6da;
+}
+
+.linha{
+  display: flex;
 }
 
 /* Letra certa e na posição correta
