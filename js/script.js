@@ -26,7 +26,7 @@ let trataTeclas = (tecla) =>{
     }
 
     if (char == 'ENTER') {
-        if (entrada.length = 5){
+        if (entrada.length == 5){
         validarEntrada()
         entrada = []
         linha += 1}
@@ -73,7 +73,7 @@ function validarEntrada() {
     for (var i = 0; i < palavraDoDia.length; i++){
         
         // Letra correta na posição correta
-        if (palavraDoDia[i] == (entrada[i])){
+        if (palavraDoDia[i] == (entrada[i]) ){
             let elId = `l${linha}c${i+1}`
             var l = document.getElementById(elId)
             l.classList.add('validado')
@@ -90,11 +90,13 @@ function validarEntrada() {
         
         // Letra não existe
         else{
+            if (entrada.length == 5){           
             let elId = `l${linha}c${i+1}`
             var l = document.getElementById(elId)
             l.classList.add('invalido')
             l.classList.add("animate__animated")
             l.classList.add("animate__flipInX")
+            }
         }
 
     }
