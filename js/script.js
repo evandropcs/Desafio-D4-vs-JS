@@ -6,7 +6,8 @@ palavrasValidasAcentuadas.forEach(function(element) {
 
 let indice = Math.floor(Math.random() * palavrasValidas.length)
 
-let palavraDoDia = palavrasValidas[indice]
+// let palavraDoDia = palavrasValidas[indice]
+palavraDoDia = 'OSSOS'
 
 let linha = 1
 
@@ -79,6 +80,7 @@ function validarEntrada() {
             l.classList.add('validado')
             l.classList.add("animate__animated")
             l.classList.add("animate__flipInX")
+
         }
 
         // Letra correta na posição errada correta
