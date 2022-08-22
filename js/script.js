@@ -1,15 +1,19 @@
-const palavrasValidas = ['ARROZ', 'AMORA', 'TESTE']
+let palavrasValidas = []
 
-const palavraDoDia = 'ARROZ'
+palavrasValidasAcentuadas.forEach(function(element) {
+    palavrasValidas.push(element.normalize('NFD').replace(/[\u0300-\u036f]/g, ""))
+})
+
+let palavraDoDia = palavrasValidas[0].toUpperCase()
 
 let linha = 1
 
 let entrada = []
 
+let trataTeclas = (tecla) =>{
 
-const ouvinteDeTeclas = (event) => {
+    let char = tecla.toUpperCase();
 
-    let char = event.key.toUpperCase();
     let alfabeto = [
         'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q',
         'R','S','T','U','V','W','X','Y','Z', 'ENTER', 'BACKSPACE'];
@@ -29,6 +33,7 @@ const ouvinteDeTeclas = (event) => {
         return;
     }
 
+
     if (char == 'BACKSPACE'){
         entrada.pop()
         console.log(entrada)
@@ -42,7 +47,11 @@ const ouvinteDeTeclas = (event) => {
     
     console.log(entrada)
     exibeLetra(char)
-    
+
+}
+
+const ouvinteDeTeclas = (event) => {
+    trataTeclas(event.key)
 }
 
 function exibeLetra(letra) {
@@ -107,3 +116,14 @@ function fracasso (){
 
 
 document.body.addEventListener('keydown', ouvinteDeTeclas)
+document.querySelectorAll(".tecla").forEach((el) =>{
+    el.addEventListener('click', function(el){
+       let letra = el.srcElement.textContent 
+
+       if (letra == "⌫"){
+        letra = 'BACKSPACE'
+       }
+
+       trataTeclas(letra)
+    })
+})
