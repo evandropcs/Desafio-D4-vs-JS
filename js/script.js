@@ -16,6 +16,24 @@ let linha = 1
 
 let entrada = []
 
+const ouvinteDeTeclas = (event) => {
+    trataTeclas(event.key)
+}
+
+// Capitura teclas digitadas no teclado
+document.body.addEventListener('keydown', ouvinteDeTeclas)
+
+// Capitura botões acionados pelo mouse
+document.querySelectorAll(".tecla").forEach((el) =>{
+    el.addEventListener('click', function(el){
+       let letra = el.event.target.textContent 
+       if (letra == "⌫"){
+        letra = 'BACKSPACE'
+       }
+       trataTeclas(letra)
+    })
+})
+
 let trataTeclas = (tecla) =>{
 
     let char = tecla.toUpperCase();
@@ -26,7 +44,7 @@ let trataTeclas = (tecla) =>{
 
     if (!alfabeto.includes(char)) {
         console.log('tecla inválida', char)
-        return null;
+        return;
     }
 
     if (char == 'ENTER') {
@@ -34,11 +52,8 @@ let trataTeclas = (tecla) =>{
         validarEntrada()
         entrada = []
         linha += 1}
-        console.log('linha: ', linha)
-        console.log('entrada: ',entrada.length)
         return;
     }
-
 
     if (char == 'BACKSPACE'){
         entrada.pop()
@@ -49,51 +64,41 @@ let trataTeclas = (tecla) =>{
 
     if (entrada.length < 5){
         entrada.push(char)  
+        exibeLetra(char)
     }
-    
-    console.log(entrada)
-    exibeLetra(char)
-
 }
 
-const ouvinteDeTeclas = (event) => {
-    trataTeclas(event.key)
-}
-
-function exibeLetra(letra) {
+const exibeLetra = (letra) => {
     let elId = `l${linha}c${entrada.length}`
     const el = document.getElementById(elId)
     el.textContent = letra
 }
 
-function removeLetra() {
+const removeLetra = () => {
     let elId = `l${linha}c${entrada.length + 1}`
     const el = document.getElementById(elId)
     el.textContent = ''
 }
 
-function validarEntrada() {
+const validarEntrada = () => {
     entrada = entrada.join('')
-
-    // debugger
     
     for (var i = 0; i < palavraDoDia.length; i++){
-        // debugger
+        
+        let elId = `l${linha}c${i+1}`
+        var el = document.getElementById(elId)
+
         // Letra correta na posição correta
         if (palavraDoDia[i] == (entrada[i]) ){
-            let elId = `l${linha}c${i+1}`
-            var l = document.getElementById(elId)
-            l.classList.add('validado')
-            l.classList.add("animate__animated")
-            l.classList.add("animate__flipInX")
+            el.classList.add('validado')
+            el.classList.add("animate__animated")
+            el.classList.add("animate__flipInX")
             entrada = entrada.replace(entrada[i], '@')
             palavraDoDia = palavraDoDia.replace(palavraDoDia[i], '!')
         }
 
         // Letra correta na posição errada correta
         else if (palavraDoDia.includes(entrada[i])){
-            let elId = `l${linha}c${i+1}`
-            var l = document.getElementById(elId)
 
             // CONTA LETRA NA PALAVRA DO DIA
 
@@ -115,12 +120,13 @@ function validarEntrada() {
             }
 
             if (letraRepetidaEntrada < letraRepetidaDia){
-                l.classList.add('posicao-errada')
+                el.classList.add('posicao-errada')
                 letraRepetidaDia = 0
                 letraRepetidaEntrada = 0
                 entrada = entrada.replace(entrada[i], '@')
+
             } else if (letraRepetidaEntrada == letraRepetidaDia){
-                l.classList.add('posicao-errada')
+                el.classList.add('posicao-errada')
                 letraRepetidaDia = 0
                 letraRepetidaEntrada = 0
                 palavraDoDia = palavraDoDia.replace(palavraDoDia.indexOf(entrada[i]),'@')
@@ -128,59 +134,23 @@ function validarEntrada() {
             } 
             
             else{
-                l.classList.add('invalido')
+                el.classList.add('invalido')
                 letraRepetidaDia = 0
                 letraRepetidaEntrada = 0
                 entrada = entrada.replace(entrada[i], '@')
             }
 
         } 
-        
-        
+           
         // Letra não existe
         else{
             if (entrada.length == 5){           
-            let elId = `l${linha}c${i+1}`
-            var l = document.getElementById(elId)
-            l.classList.add('invalido')
-            l.classList.add("animate__animated")
-            l.classList.add("animate__flipInX")
+            el.classList.add('invalido')
+            el.classList.add("animate__animated")
+            el.classList.add("animate__flipInX")
             }
         }
-
-    }
-
-    if (palavraDoDia === entrada){
-        setTimeout(sucesso, 600)
-    } 
-    
-    if (linha === 6 && palavraDoDia != entrada){
-        setTimeout(fracasso, 600)
     }
 
     palavraDoDia = palavraDoDiaAUX
 }
-
-
-
-function sucesso (){
-    alert('Parabéns, você venceu!')
-}
-
-function fracasso (){
-    alert(`A palavra do dia era: ${palavraDoDia}`)
-}
-
-
-document.body.addEventListener('keydown', ouvinteDeTeclas)
-document.querySelectorAll(".tecla").forEach((el) =>{
-    el.addEventListener('click', function(el){
-       let letra = el.srcElement.textContent 
-
-       if (letra == "⌫"){
-        letra = 'BACKSPACE'
-       }
-
-       trataTeclas(letra)
-    })
-})
