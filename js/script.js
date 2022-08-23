@@ -6,8 +6,8 @@ palavrasValidasAcentuadas.forEach(function(element) {
 
 let indice = Math.floor(Math.random() * palavrasValidas.length)
 
-// let palavraDoDia = palavrasValidas[indice]
-palavraDoDia = 'OSSOS'
+let palavraDoDia = palavrasValidas[indice]
+// palavraDoDia = 'OSSOS'
 
 // VARIAVEL PARA SALVAR VALOR DE PALAVRA DO DIA
 var palavraDoDiaAUX = palavraDoDia
